@@ -7,11 +7,11 @@ Screenshots:
 
 <img src="screenshots/1.png">
 <br>
-<img src="screenshots/2.PNG">
+<img src="screenshots/2.png">
 <br>
-<img src="screenshots/1.1.PNG">
+<img src="screenshots/1.1.png">
 <br>
-<img src="screenshots/1.2.PNG">
+<img src="screenshots/1.2.png">
 <br>
-<img src="screenshots/1.3.PNG">
+<img src="screenshots/1.3.png">
 <br>
