@@ -5,7 +5,7 @@ Technology used:
 
 Screenshots:
 
-<img src="screenshots/1.PNG">
+<img src="screenshots/1.png">
 <br>
 <img src="screenshots/2.PNG">
 <br>
