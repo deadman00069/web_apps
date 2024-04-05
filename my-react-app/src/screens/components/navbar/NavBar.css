@@ -1,0 +1,31 @@
+nav {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  border-bottom: 1px solid #c3d4e940;
+  margin-bottom: 3em;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3563e9;
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+
+    li {
+      margin-right: 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      a {
+        color: black;
+        text-decoration: none;
+      }
+    }
+  }
+}
