@@ -6,7 +6,6 @@ import CustomElevatedButton from "../components/custom_elevated_button/CustomEle
 import { useEffect, useState } from "react";
 import { ProductDataModel } from "../../models/ProductModel";
 import CustomTable from "../components/custom_table/CustomTable";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Home() {
   // List of products
@@ -28,10 +27,10 @@ function Home() {
 
   const [isEditData, setIsEditData] = useState(false);
   // Set error to main content
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
 
   // Set loading
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProducts();
