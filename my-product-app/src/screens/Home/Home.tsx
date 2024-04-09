@@ -6,6 +6,7 @@ import CustomElevatedButton from "../components/custom_elevated_button/CustomEle
 import { useEffect, useState } from "react";
 import { ProductDataModel } from "../../models/ProductModel";
 import CustomTable from "../components/custom_table/CustomTable";
+import CustomLoading from "../components/custom_loading/CustomLoading";
 
 function Home() {
   // List of products
@@ -30,7 +31,7 @@ function Home() {
   const [, setError] = useState("");
 
   // Set loading
-  const [, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProducts();
@@ -191,11 +192,18 @@ function Home() {
       <div className="home-wrapper">
         <div className="home-section-1">
           <span className="home-section-title">Table</span>
-          <CustomTable
-            list={productList}
-            deleteButtonPressed={(id) => deleteItem(id)}
-            editButtonPressed={(item) => editForm(item)}
-          />
+
+          {loading ? (
+            // If loading is true, render some loading indicator or placeholder
+            <CustomLoading loading={true} />
+          ) : (
+            // If loading is false, render the CustomTable component with props
+            <CustomTable
+              list={productList}
+              deleteButtonPressed={(id) => deleteItem(id)}
+              editButtonPressed={(item) => editForm(item)}
+            />
+          )}
         </div>
         <div className="home-section-2">
           <div className="home-section-2-top-section">
