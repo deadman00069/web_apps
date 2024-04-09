@@ -18,6 +18,7 @@ interface FormData {
 }
 
 function Home() {
+  
   const [formData, setFormData] = useState<FormData>({
     uid: "",
     fname: "",
@@ -62,7 +63,7 @@ function Home() {
 
   const addItemToTableData = () => {
     const newItem: FormData = {
-      uid: generateUniqueId(), // You need to implement this function
+      uid: generateUniqueId(), 
       fname: formData.fname,
       lname: formData.lname,
       email: formData.email,
