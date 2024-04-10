@@ -104,6 +104,8 @@ function Home() {
       stock: "",
       brand: "",
       rating: "",
+      email: "",
+      phoneNo: "",
     });
 
     setFormErrors({});
