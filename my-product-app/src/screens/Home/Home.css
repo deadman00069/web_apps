@@ -90,12 +90,12 @@
     flex-direction: column;
 
     .home-section-1 {
-      width: 100%;
+      width: auto;
       min-height: 50vh;
     }
 
     .home-section-2 {
-      width: 100%;
+      width: auto;
     }
   }
 }

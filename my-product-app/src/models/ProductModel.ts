@@ -1,5 +1,5 @@
 export interface ProductDataModel {
-    id?: string;
+    id?: string ;
     title: string;
     description: string;
     price: string;

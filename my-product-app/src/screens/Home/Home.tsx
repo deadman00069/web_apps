@@ -22,6 +22,7 @@ function Home() {
     brand: "",
     category: "",
     email: "",
+    phoneNo: "",
   });
 
   // Set errors to textfield
@@ -41,7 +42,7 @@ function Home() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 4000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const response = await fetch("https://dummyjson.com/products");
       if (!response.ok) {
@@ -122,6 +123,7 @@ function Home() {
     }
     setIsEditData(false);
   };
+
   const handleInputChange =
     (field: keyof ProductDataModel) => (value: string) => {
       setFormData({
@@ -218,8 +220,18 @@ function Home() {
   };
 
   const editForm = (item: ProductDataModel) => {
-    setFormData(item);
     setFormErrors({});
+    setFormData({
+      title: item.title || "",
+      description: item.description || "",
+      category: item.category || "",
+      price: item.price || "",
+      stock: item.stock || "",
+      brand: item.brand || "",
+      rating: item.rating || "",
+      email: item.email || "", // Ensure that email is set to an empty string if undefined
+      phoneNo: item.phoneNo || "", //
+    });
     setIsEditData(true);
   };
   return (
