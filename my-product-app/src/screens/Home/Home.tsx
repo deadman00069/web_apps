@@ -21,6 +21,7 @@ function Home() {
     stock: "",
     brand: "",
     category: "",
+    email: "",
   });
 
   // Set errors to textfield
@@ -109,15 +110,14 @@ function Home() {
   };
   const updateExisitingData = () => {
     let index = productList.findIndex((item) => item.id === formdata.id);
-
+    console.log(`index is ${index}`);
     if (index !== -1) {
       const updatedProductList = [...productList];
       updatedProductList[index] = formdata;
-
       // Update the state with the new list of products
       setProductList(updatedProductList);
+      clearFormData();
     }
-
     setIsEditData(false);
   };
   const handleInputChange =
@@ -154,23 +154,56 @@ function Home() {
     if (!formdata.stock) {
       errors.stock = "Stock is required";
       isValid = false;
+    } else if (!Number.isInteger(Number(formdata.stock))) {
+      errors.stock = "Please enter a valid integer for stock";
+      isValid = false;
     }
 
     // Validate dob
     if (!formdata.price) {
       errors.price = "Price is required";
       isValid = false;
+    } else {
+      const stockPattern = /^\d+(\.\d{1,2})?$/;
+      if (!stockPattern.test(formdata.price)) {
+        errors.price = "Please enter a valid number for price";
+        isValid = false;
+      }
     }
 
     // Validate dob
     if (!formdata.brand) {
-      errors.brand = "Price is required";
+      errors.brand = "Brand is required";
       isValid = false;
     }
 
     // Validate dob
     if (!formdata.rating) {
-      errors.rating = "Price is required";
+      errors.rating = "Rating is required";
+      isValid = false;
+    } else {
+      const stockPattern = /^\d+(\.\d{1,2})?$/;
+      if (!stockPattern.test(formdata.rating)) {
+        errors.rating = "Please enter a valid number for rating";
+        isValid = false;
+      }
+    }
+
+    // Validate email
+    if (!formdata.email) {
+      errors.email = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formdata.email)) {
+      errors.email = "Email is invalid";
+      isValid = false;
+    }
+
+    // Validate phone no
+    if (!formdata.phoneNo) {
+      errors.phoneNo = "Phone no is required";
+      isValid = false;
+    } else if (!/^\+(?:[0-9] ?){6,14}[0-9]$/.test(formdata.phoneNo)) {
+      errors.phoneNo = "Please provide correct Phone no";
       isValid = false;
     }
 
@@ -184,6 +217,7 @@ function Home() {
 
   const editForm = (item: ProductDataModel) => {
     setFormData(item);
+    setFormErrors({});
     setIsEditData(true);
   };
   return (
@@ -274,6 +308,24 @@ function Home() {
               errorText={formErrors.rating}
               value={formdata.rating}
               onChange={handleInputChange("rating")}
+            />
+
+            <CustomTextField
+              label="email"
+              id="email"
+              isError={!!formErrors.email}
+              errorText={formErrors.email}
+              value={formdata.email!}
+              onChange={handleInputChange("email")}
+            />
+
+            <CustomTextField
+              label="Phone no"
+              id="ohone-no"
+              isError={!!formErrors.phoneNo}
+              errorText={formErrors.phoneNo}
+              value={formdata.phoneNo!}
+              onChange={handleInputChange("phoneNo")}
             />
 
             <CustomElevatedButton

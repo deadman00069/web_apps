@@ -7,5 +7,7 @@ export interface ProductDataModel {
     stock: string;
     brand: string;
     category: string;
+    email?:string;
+    phoneNo?:string;
   }
   
