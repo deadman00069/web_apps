@@ -6,10 +6,11 @@ export default function CustomTextField(prop: {
   isError?: boolean;
   errorText?: string;
   value: string;
-  onChange: (value: string) => void;
+  OnBlurChange: () => void;
+  onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
+    const newValue = e;
     prop.onChange(newValue);
   };
 
@@ -24,6 +25,7 @@ export default function CustomTextField(prop: {
         id={prop.id}
         className={prop.isError ? "text-field error" : "text-field"}
         onChange={handleChange}
+        onBlur={prop.OnBlurChange}
       />
 
       {prop.isError && <span className="error-message">{prop.errorText}</span>}

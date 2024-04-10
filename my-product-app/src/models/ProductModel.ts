@@ -1,4 +1,5 @@
 export interface ProductDataModel {
+  [key: string]: any;
     id?: string ;
     title: string;
     description: string;

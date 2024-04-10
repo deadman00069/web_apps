@@ -3,239 +3,32 @@ import "./Home.css";
 import CustomTextField from "../components/custom_text_field/CustomTextField";
 import CustomElevatedButton from "../components/custom_elevated_button/CustomElevatedButton";
 
-import { useEffect, useState } from "react";
-import { ProductDataModel } from "../../models/ProductModel";
+import { useEffect } from "react";
 import CustomTable from "../components/custom_table/CustomTable";
 import CustomLoading from "../components/custom_loading/CustomLoading";
+import { useForm } from "./useForm";
+import { AppValidation } from "../../utils/Validations";
 
 function Home() {
-  // List of products
-  const [productList, setProductList] = useState<ProductDataModel[]>([]);
-
-  // form data for creating product
-  const [formdata, setFormData] = useState<ProductDataModel>({
-    title: "",
-    description: "",
-    price: "",
-    rating: "",
-    stock: "",
-    brand: "",
-    category: "",
-    email: "",
-    phoneNo: "",
-  });
-
-  // Set errors to textfield
-  const [formErrors, setFormErrors] = useState<Partial<ProductDataModel>>({});
-
-  const [isEditData, setIsEditData] = useState(false);
-  // Set error to main content
-  const [, setError] = useState("");
-
-  // Set loading
-  const [loading, setLoading] = useState(true);
+  const {
+    formData,
+    formErrors,
+    handleChange,
+    validateField,
+    clearFormData,
+    editForm,
+    handleSubmit,
+    productList,
+    loading,
+    fetchProducts,
+    deleteItem,
+    onButtonClicked,
+  } = useForm();
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const response = await fetch("https://dummyjson.com/products");
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      // Parse the response JSON
-      const result = await response.json();
-      const listofProducts = result["products"];
-      // Set fetched data to state
-      setProductList(listofProducts);
-    } catch (e) {
-      console.log(`Error: ${e}`);
-      setError(`${e}`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const deleteItem = (id: string) => {
-    const result = window.confirm("Are you sure?");
-    if (result) {
-      setProductList(productList.filter((item) => item.id !== id));
-    }
-  };
-
-  const addItemToTableData = () => {
-    const newItem: ProductDataModel = {
-      id: productList[productList.length - 1].id! + 1,
-      title: formdata.title,
-      description: formdata.description,
-      category: formdata.category,
-      price: formdata.price,
-      stock: formdata.stock,
-      brand: formdata.brand,
-      rating: formdata.rating,
-    };
-
-    setProductList((prevTableData) => [...prevTableData, newItem]);
-
-    clearFormData();
-  };
-
-  const handleButtonClick = () => {
-    if (validateForm()) {
-      if (isEditData) {
-        updateExisitingData();
-      } else {
-        addItemToTableData();
-      }
-    }
-  };
-
-  const clearFormData = () => {
-    setFormData({
-      id: "",
-      title: "",
-      description: "",
-      category: "",
-      price: "",
-      stock: "",
-      brand: "",
-      rating: "",
-      email: "",
-      phoneNo: "",
-    });
-
-    setFormErrors({});
-  };
-  const updateExisitingData = () => {
-    console.log(`formdata id is ${formdata.id}`);
-    let index = productList.findIndex((item) => item.id === formdata.id);
-    console.log(`index is ${index}`);
-    if (index !== -1) {
-      const updatedProductList = [...productList];
-      updatedProductList[index] = formdata;
-      // Update the state with the new list of products
-      setProductList(updatedProductList);
-      clearFormData();
-    }
-    setIsEditData(false);
-  };
-
-  const handleInputChange =
-    (field: keyof ProductDataModel) => (value: string) => {
-      setFormData({
-        ...formdata,
-        [field]: value,
-      });
-    };
-
-  const validateForm = () => {
-    let errors: Partial<ProductDataModel> = {};
-    let isValid = true;
-
-    // Validate first name
-    if (!formdata.title) {
-      errors.title = "Title is required";
-      isValid = false;
-    }
-
-    // Validate last name
-    if (!formdata.description) {
-      errors.description = "Description is required";
-      isValid = false;
-    }
-
-    // Validate phone no
-    if (!formdata.category) {
-      errors.category = "Please provide category";
-      isValid = false;
-    }
-
-    // Validate gender
-    if (!formdata.stock) {
-      errors.stock = "Stock is required";
-      isValid = false;
-    } else if (!Number.isInteger(Number(formdata.stock))) {
-      errors.stock = "Please enter a valid integer for stock";
-      isValid = false;
-    }
-
-    // Validate dob
-    if (!formdata.price) {
-      errors.price = "Price is required";
-      isValid = false;
-    } else {
-      const stockPattern = /^\d+(\.\d{1,2})?$/;
-      if (!stockPattern.test(formdata.price)) {
-        errors.price = "Please enter a valid number for price";
-        isValid = false;
-      }
-    }
-
-    // Validate dob
-    if (!formdata.brand) {
-      errors.brand = "Brand is required";
-      isValid = false;
-    }
-
-    // Validate dob
-    if (!formdata.rating) {
-      errors.rating = "Rating is required";
-      isValid = false;
-    } else {
-      const stockPattern = /^\d+(\.\d{1,2})?$/;
-      if (!stockPattern.test(formdata.rating)) {
-        errors.rating = "Please enter a valid number for rating";
-        isValid = false;
-      }
-    }
-
-    // Validate email
-    if (!formdata.email) {
-      errors.email = "Email is required";
-      isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formdata.email)) {
-      errors.email = "Email is invalid";
-      isValid = false;
-    }
-
-    // Validate phone no
-    if (!formdata.phoneNo) {
-      errors.phoneNo = "Phone no is required";
-      isValid = false;
-    } else if (!/^\+(?:[0-9] ?){6,14}[0-9]$/.test(formdata.phoneNo)) {
-      errors.phoneNo = "Please provide correct Phone no";
-      isValid = false;
-    }
-
-    setFormErrors(errors);
-    return isValid;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
-  const editForm = (item: ProductDataModel) => {
-    setFormErrors({});
-    setFormData({
-      id: item.id || "",
-      title: item.title || "",
-      description: item.description || "",
-      category: item.category || "",
-      price: item.price || "",
-      stock: item.stock || "",
-      brand: item.brand || "",
-      rating: item.rating || "",
-      email: item.email || "", // Ensure that email is set to an empty string if undefined
-      phoneNo: item.phoneNo || "", //
-    });
-    setIsEditData(true);
-  };
   return (
     <>
       <NavBar />
@@ -272,8 +65,9 @@ function Home() {
               id="title"
               isError={!!formErrors.title}
               errorText={formErrors.title}
-              value={formdata.title}
-              onChange={handleInputChange("title")}
+              value={formData.title}
+              OnBlurChange={() => validateField("title", formData.title)}
+              onChange={handleChange("title")}
             />
 
             <div className="spacer"></div>
@@ -282,48 +76,56 @@ function Home() {
               id="description"
               isError={!!formErrors.description}
               errorText={formErrors.description}
-              value={formdata.description}
-              onChange={handleInputChange("description")}
+              value={formData.description}
+              OnBlurChange={() =>
+                validateField("description", formData.description)
+              }
+              onChange={handleChange("description")}
             />
             <CustomTextField
               label="Category"
               id="category"
               isError={!!formErrors.category}
               errorText={formErrors.category}
-              value={formdata.category}
-              onChange={handleInputChange("category")}
+              value={formData.category}
+              OnBlurChange={() => validateField("category", formData.category)}
+              onChange={handleChange("category")}
             />
             <CustomTextField
               label="Stock"
               id="stock"
               isError={!!formErrors.stock}
               errorText={formErrors.stock}
-              value={formdata.stock}
-              onChange={handleInputChange("stock")}
+              value={formData.stock}
+              OnBlurChange={() => validateField("stock", formData.stock)}
+              onChange={handleChange("stock")}
             />
             <CustomTextField
               label="Price"
               id="price"
               isError={!!formErrors.price}
               errorText={formErrors.price}
-              value={formdata.price}
-              onChange={handleInputChange("price")}
+              value={formData.price}
+              OnBlurChange={() => validateField("price", formData.price)}
+              onChange={handleChange("price")}
             />
             <CustomTextField
               label="Brand"
               id="brand"
               isError={!!formErrors.brand}
               errorText={formErrors.brand}
-              value={formdata.brand}
-              onChange={handleInputChange("brand")}
+              value={formData.brand}
+              OnBlurChange={() => validateField("brand", formData.brand)}
+              onChange={handleChange("brand")}
             />
             <CustomTextField
               label="Rating"
               id="rating"
               isError={!!formErrors.rating}
               errorText={formErrors.rating}
-              value={formdata.rating}
-              onChange={handleInputChange("rating")}
+              value={formData.rating}
+              OnBlurChange={() => validateField("rating", formData.rating)}
+              onChange={handleChange("rating")}
             />
 
             <CustomTextField
@@ -331,8 +133,9 @@ function Home() {
               id="email"
               isError={!!formErrors.email}
               errorText={formErrors.email}
-              value={formdata.email!}
-              onChange={handleInputChange("email")}
+              value={formData.email!}
+              OnBlurChange={() => validateField("email", formData.email ?? "")}
+              onChange={handleChange("email")}
             />
 
             <CustomTextField
@@ -340,13 +143,16 @@ function Home() {
               id="ohone-no"
               isError={!!formErrors.phoneNo}
               errorText={formErrors.phoneNo}
-              value={formdata.phoneNo!}
-              onChange={handleInputChange("phoneNo")}
+              value={formData.phoneNo!}
+              OnBlurChange={() =>
+                validateField("phoneNo", formData.phoneNo ?? "")
+              }
+              onChange={handleChange("phoneNo")}
             />
 
             <CustomElevatedButton
               name="Submit"
-              onButtonClick={handleButtonClick}
+              onButtonClick={onButtonClicked}
             />
           </form>
         </div>
