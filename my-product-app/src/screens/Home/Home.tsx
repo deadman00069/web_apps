@@ -112,6 +112,7 @@ function Home() {
     setFormErrors({});
   };
   const updateExisitingData = () => {
+    console.log(`formdata id is ${formdata.id}`);
     let index = productList.findIndex((item) => item.id === formdata.id);
     console.log(`index is ${index}`);
     if (index !== -1) {
@@ -222,6 +223,7 @@ function Home() {
   const editForm = (item: ProductDataModel) => {
     setFormErrors({});
     setFormData({
+      id: item.id || "",
       title: item.title || "",
       description: item.description || "",
       category: item.category || "",
