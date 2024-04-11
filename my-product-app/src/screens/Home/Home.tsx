@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import CustomTable from "../components/custom_table/CustomTable";
 import CustomLoading from "../components/custom_loading/CustomLoading";
 import { useForm } from "./useForm";
-import { AppValidation } from "../../utils/Validations";
 
 function Home() {
   const {
