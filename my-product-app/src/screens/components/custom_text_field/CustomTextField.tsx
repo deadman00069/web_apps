@@ -16,9 +16,13 @@ export default function CustomTextField(prop: {
 
   return (
     <div className="custom-text-field-with-label-up">
-      <label htmlFor={prop.id} className="label">
-        {prop.label}
-      </label>
+      <span>
+        <label htmlFor={prop.id} className="label">
+          {prop.label}
+        </label>
+        <span className="asterisks">*</span>
+      </span>
+
       <input
         type="text"
         value={prop.value}

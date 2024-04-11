@@ -3,7 +3,7 @@ export const AppValidation = () => {
     value: string
   ): { isValid: boolean; errorMessage: string } => {
     if (value.trim() === "") {
-      return { isValid: false, errorMessage: "THis field is required" };
+      return { isValid: false, errorMessage: "This field is required" };
     }
     return { isValid: true, errorMessage: "" };
   };
@@ -14,7 +14,7 @@ export const AppValidation = () => {
     if (email.trim() === "") {
       return {
         isValid: false,
-        errorMessage: "Please enter your email address",
+        errorMessage: "This field is required",
       };
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       return {
@@ -31,12 +31,12 @@ export const AppValidation = () => {
     if (!input) {
       return {
         isValid: false,
-        errorMessage: "THis field is required",
+        errorMessage: "This field is required",
       };
     } else if (!Number.isInteger(Number(input))) {
       return {
         isValid: false,
-        errorMessage: "Please enter a valid integer number",
+        errorMessage: "Please enter a valid number",
       };
     }
     return { isValid: true, errorMessage: "" };
@@ -48,7 +48,7 @@ export const AppValidation = () => {
     if (!input) {
       return {
         isValid: false,
-        errorMessage: "This field is required to be a number", // More specific error message
+        errorMessage: "This field is required", // More specific error message
       };
     }
 
@@ -60,7 +60,7 @@ export const AppValidation = () => {
     if (!doubleRegex.test(input)) {
       return {
         isValid: false,
-        errorMessage: "Please enter a valid double number",
+        errorMessage: "Please enter a valid number",
       };
     }
     return { isValid: true, errorMessage: "" };
@@ -72,7 +72,7 @@ export const AppValidation = () => {
     if (!input) {
       return {
         isValid: false,
-        errorMessage: "Phone no is required",
+        errorMessage: "This field is required",
       };
     } else if (!/^\+(?:[0-9] ?){6,14}[0-9]$/.test(input)) {
       return {
@@ -88,6 +88,6 @@ export const AppValidation = () => {
     customValidateEmail,
     validateIsInteger,
     validateIsDouble,
-    validatePhoneNo
+    validatePhoneNo,
   };
 };
