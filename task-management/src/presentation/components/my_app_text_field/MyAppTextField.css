@@ -1,0 +1,8 @@
+.lable-row {
+  display: flex;
+
+  .asterisks {
+    color: red;
+    padding-left: 8px;
+  }
+}

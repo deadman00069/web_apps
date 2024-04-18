@@ -1,0 +1,85 @@
+{
+  "login": {
+    "status": true,
+    "message": "Login Success",
+    "error": null,
+    "data": {
+      "name": "Konark",
+      "user_name": "deadman",
+      "email": "demo@mail.com",
+      "token": "dsfddsfsdfs"
+    }
+  },
+  "signup": {
+    "status": true,
+    "message": "Signup Success",
+    "error": null,
+    "data": {
+      "name": "Konark",
+      "user_name": "deadman",
+      "email": "demo@mail.com",
+      "token": "dsfddsfsdfs"
+    }
+  },
+  "task-history": {
+    "status": true,
+    "message": "Data fetch Success",
+    "error": null,
+    "data": {
+      "total_tasks": 10,
+      "total_ongoing_tasks": 20,
+      "total_pending_tasks": 2,
+      "total_completed_tasks": 2
+    }
+  },
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    },
+    {
+      "id": "f2f0"
+    },
+    {
+      "id": "3e4a"
+    },
+    {
+      "id": "a4fc"
+    },
+    {
+      "id": "56ba"
+    },
+    {
+      "id": "a4ec"
+    },
+    {
+      "id": "b61d"
+    },
+    {
+      "id": "6135"
+    },
+    {
+      "id": "0e9b"
+    },
+    {
+      "id": "df28"
+    },
+    {
+      "id": "6314"
+    },
+    {
+      "id": "8177"
+    },
+    {
+      "id": "504b",
+      "fdsfds": "fdsfdsfsd",
+      "vsvsd": "e23"
+    }
+  ]
+}

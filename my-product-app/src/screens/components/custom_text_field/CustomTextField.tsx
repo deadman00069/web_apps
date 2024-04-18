@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { UserContext } from "../../../App";
 import "./CustomTextField.css";
 
 export default function CustomTextField(prop: {
@@ -13,6 +15,8 @@ export default function CustomTextField(prop: {
     const newValue = e;
     prop.onChange(newValue);
   };
+
+  const user = useContext(UserContext);
 
   return (
     <div className="custom-text-field-with-label-up">
@@ -31,7 +35,7 @@ export default function CustomTextField(prop: {
         onChange={handleChange}
         onBlur={prop.OnBlurChange}
       />
-
+      <span>{user}</span>
       {prop.isError && <span className="error-message">{prop.errorText}</span>}
     </div>
   );
